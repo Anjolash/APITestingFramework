@@ -46,4 +46,14 @@ class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Jane"));
     }
+
+    @Test
+    void shouldGetUserById() throws Exception {
+        User user = new User("John", "john@email.com");
+        when(userService.getUserById(1L)).thenReturn(user);
+
+        mockMvc.perform(get("/users/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value("John"));
+    }
 }
